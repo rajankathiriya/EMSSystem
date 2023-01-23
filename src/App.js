@@ -1,24 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
+import LoginEMS from './Component/EMS/Login';
+import RegistrationEMS from './Component/EMS/Registration';
+import { ToastContainer } from 'react-toastify';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import RequireAuth from './Component/EMS/Private/Requiredau';
+import Dashboard from './Component/EMS/Dashboard';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<LoginEMS />} />
+          <Route path='/registration' element={<RegistrationEMS />} />
+          <Route path='/dashboard' element={<RequireAuth><Dashboard /></RequireAuth>} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
