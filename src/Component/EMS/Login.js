@@ -2,7 +2,7 @@ import { Button, TextField } from '@mui/material'
 import axios from 'axios';
 import { React, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 export default function LoginEMS() {
@@ -23,9 +23,9 @@ export default function LoginEMS() {
                 console.log(y);
                 localStorage.setItem("EMSdata", JSON.stringify(y.data))
                 myNav("/dashboard")
-                // toast("Login Successfully.....")
+                toast("Login Successfully.....")
             }).catch(() => {
-                // toast("Email and password invalid")
+                toast("Email and password invalid")
             })
     }
 

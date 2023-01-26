@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css'; // Optional theme CSS
-
+import BtnCellRenderer from './BtnCellRenderer';
+import EditButton from './EditButton';
 const Dashboard = () => {
 
 
@@ -17,11 +18,20 @@ const Dashboard = () => {
         { field: "created", filter: true },
         { field: "isVerified", filter: true },
         { field: "role", filter: true },
+        {
+            field: "delete", cellRenderer: BtnCellRenderer,
+
+
+        },
+        {
+            field: "edit", cellRenderer: EditButton,
+
+        },
 
     ]);
     const [row, setrow] = useState([]);
 
-    const dataFetch = (e) => {
+    useEffect(() => {
         let data = localStorage.getItem("EMSdata")
         let p = JSON.parse(data)
         axios.get("http://localhost:4000/accounts", {
@@ -38,14 +48,10 @@ const Dashboard = () => {
                 console.log(y);
             }
         )
-    }
+    }, []);
     return (
         <div>
             <Navbar />
-
-            <div className='mx-auto'>
-                <button onClick={dataFetch} className=' btn btn-outline-primary'>Fetch Data</button>
-            </div>
 
             <div className="ag-theme-alpine" style={{ width: "100 %", height: 600 }}>
                 <AgGridReact rowData={row} columnDefs={column}></AgGridReact>
